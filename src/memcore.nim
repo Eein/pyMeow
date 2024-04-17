@@ -87,7 +87,6 @@ proc is64bit(process: Process): bool {.exportpy: "is_64_bit".} =
 iterator enumProcesses: Process {.exportpy: "enum_processes".} =
   var p: Process
   when defined(linux):
-    checkRoot()
     let allFiles = toSeq(walkDir("/proc", relative = true))
     for pid in mapIt(filterIt(allFiles, isDigit(it.path[0])), parseInt(it.path)):
         p.pid = pid
